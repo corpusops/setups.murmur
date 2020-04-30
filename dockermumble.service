@@ -1,0 +1,32 @@
+# Ansible managed
+#
+#
+#
+[Unit]
+Description=mumble DockerCompose service
+Before=
+After=docker.service network.service
+Requires=docker.service
+[Service]
+Environment="PATH=/bin:/usr/sbin:/usr/bin:/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/snap/bin"
+
+Restart=on-failure
+
+
+RestartSec=0
+
+
+TimeoutSec=300
+
+WorkingDirectory=/srv/docker/mumble
+ExecStartPre=/usr/bin/env docker-compose -f "docker-compose.yml" -f "docker-compose-prod.yml"  -p "mumble" config
+# ExecStartPre=/usr/bin/env docker-compose -f "docker-compose.yml" -f "docker-compose-prod.yml"  -p "mumble" pull
+ExecStartPre=/usr/bin/env docker-compose -f "docker-compose.yml" -f "docker-compose-prod.yml"  -p "mumble" config
+ExecStart=/usr/bin/env    docker-compose -f "docker-compose.yml" -f "docker-compose-prod.yml"  -p "mumble" up
+ExecStop=/usr/bin/env     docker-compose -f "docker-compose.yml" -f "docker-compose-prod.yml"  -p "mumble" config
+ExecStop=/usr/bin/env     docker-compose -f "docker-compose.yml" -f "docker-compose-prod.yml"  -p "mumble" stop
+ExecStopPost=/usr/bin/env docker-compose -f "docker-compose.yml" -f "docker-compose-prod.yml"  -p "mumble" config
+ExecStopPost=/usr/bin/env docker-compose -f "docker-compose.yml" -f "docker-compose-prod.yml"  -p "mumble" down
+
+[Install]
+WantedBy=multi-user.target

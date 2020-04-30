@@ -1,0 +1,13 @@
+---
+version: "3.7"
+services:
+  murmur:
+    env_file: [.env]
+    image: "corpusops/murmur:${MM_VERSION:-1.3.0}"
+    ports:
+    - "64738:64738/tcp"
+    - "64738:64738/udp"
+    volumes:
+      - "mumble-data:/etc/murmur"
+volumes:
+  mumble-data:
