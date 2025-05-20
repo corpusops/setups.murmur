@@ -2,7 +2,7 @@
 # inspired from https://raw.githubusercontent.com/vimagick/dockerfiles/master/murmur/Dockerfile
 
 FROM alpine 
-MAINTAINER kiorky <kiorky@cryptelium.net>
+MAINTAINER kiorky <freesoftware@makina-corpus.com>
 
 ARG MM_VERSION=1.3.0
 ENV MM_VERSION $MM_VERSION
